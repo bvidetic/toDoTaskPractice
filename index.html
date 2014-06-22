@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js">
+		</script></head>
+
+	<body>
+			<h3>To do Tasks</h3>
+			<input type="text" id="add-text" placeholder="add a task here"
+			class="add-text" name="add-text" value autocomplete="off">
+			<button id="add-button">add item</button> 
+			<ul id="tasks" class="tasks"></ul>
+			<script>
+
+					var todoItems, addText, newTask;
+
+					addText = document.getElementById("add-text");
+					todoItems = document.getElementById("tasks");
+					addButton=document.getElementById("add-button");
+
+					/*set focus to addText*/
+					addText.focus();
+
+					function dc(param) {
+						return document.createElement(param);
+					}
+
+					function addNewTaskFromEnterKey(event) {
+						if(event.charCode == 13) {
+							addNewTask();
+						}
+					}
+
+					function addNewTaskFromButton(event) {
+						addNewTask();
+					}
+
+				// 	function addNewTask2(event){
+
+				// 			if(event.charCode == 13 || event.type == "click"){
+
+				// 				addNewTask();
+
+
+				// 			}
+				// }
+
+				function deleteTask(event){
+							todoItems.removeChild(event.target.parentNode);
+				}
+
+				function addNewTask(){
+						/*Get Value from input*/
+								var textValue = addText.value
+
+								/*New Task Created Here BUT not connected*/
+								// var newTask=document.createElement("li");
+								// newTask.innerHTML=textValue;
+
+								/*New Task Created Here and IS connected*/
+								newTask=dc("li");
+								newTask.classList.add("classy");
+
+								/*Delete task list items*/								
+								var deleteButton = dc("button");
+								deleteButton.innerHTML = "delete";
+								deleteButton.onclick = deleteTask;
+
+								newTask.innerHTML=textValue;
+
+								/*append to ul*/
+								todoItems.appendChild(newTask);
+
+								newTask.appendChild(deleteButton);
+
+								/*clear text value*/
+								addText.value=""
+
+								/*set focus to add text*/
+								addText.focus();
+				}
+				/*call function when the key press (13 "enter") happens*/
+				addText.onkeypress = addNewTaskFromEnterKey;
+				addButton.onclick = addNewTaskFromButton;
+				
+			</script>
+	</body>
+</html>
